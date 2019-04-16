@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="common/common::#head(title='order list')"></div>
+<body>
+<!-- header -->
+<div th:replace="common/common::#header(active='orders')"></div>
+<!-- //header -->
+
+<!-- blog -->
+<div class="blog">
+    <!-- container -->
+    <div class="container">
+        <div class="blog-heading">
+            <h2 class="wow fadeInDown animated" data-wow-delay=".5s">[[${session.customer.username}]]'s Orders</h2>
+            <p class="wow fadeInUp animated" data-wow-delay=".5s"></p>
+        </div>
+        <div class="blog-top-grids">
+            <div class="col-md-12  blog-top-left-grid">
+                <div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>car</th>
+                            <th>Car Brand</th>
+                            <th>rent Cost</th>
+                            <th>total Cost</th>
+                            <th>seats</th>
+                            <th>Rent Time</th>
+                            <th>Rent Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="t : ${res.data.data}">
+                            <td th:text="${t.id}"></td>
+                            <td><img th:src="@{/images/upload/} + ${t.car.image}" style="width: 50px;height: 50px;"></td>
+                            <td th:text="${t.car.carBrand}"></td>
+                            <td th:text="${t.car.rentCost}"></td>
+                            <td th:text="${t.realCost}"></td>
+                            <td th:text="${t.car.seats}"></td>
+                            <td th:text="${t.rentTime}"></td>
+                            <td th:text="${t.rentStatusStr}"></td>
+                            <td>
+                                <a class="btn btn-default" th:if="${t.rentStatus == 1}" href="#">return</a>
+                                <a th:href="@{/paypal/pay(id=${t.id})}" class="btn btn-default" th:if="${t.rentStatus == 2}" >pay</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- //container -->
+</div>
+<!-- //blog -->
+
+<div th:replace="common/common::#footer"></div>
+</body>
+</html>

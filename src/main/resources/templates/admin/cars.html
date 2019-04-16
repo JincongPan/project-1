@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="admin/common/common::#head(title='car manage')"></div>
+
+
+<body class="flat-blue">
+<div class="app-container">
+    <div class="row content-container">
+        <div th:replace="admin/common/common::#topbar(navtext='Car Manage',activetext='car list')"></div>
+        <div class="side-menu sidebar-inverse">
+            <div th:replace="admin/common/common::#leftbar(activeUri='cars')"></div>
+        </div>
+        <!-- Main Content -->
+        <div class="container-fluid">
+            <div class="side-body">
+                <div class="page-title">
+                    <span class="title">All Cars</span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="col-xs-12 col-md-12 col-sm-12">
+                                            <div class="input-group col-xs-6 col-md-6 col-sm-12">
+                                                <input id="keyword" th:value="${keyword == null ? '':keyword}"
+                                                       type="text" style="margin-top: 5px;" class="form-control"
+                                                       placeholder="">
+                                                <span class="input-group-btn">
+                                                        <button class="btn btn-default"
+                                                                type="button">Search</button>
+                                                     <a th:href="@{/admin/car/add}" class="btn btn-default"
+                                                        type="button">Add Car</a>
+                                                    </span>
+                                            </div><!-- /input-group -->
+                                        </div>
+                                    </div>
+                                    <!-- Table -->
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>carBrand</th>
+                                            <th>licensePlate</th>
+                                            <th>rentCost</th>
+                                            <th>longitude</th>
+                                            <th>dimension</th>
+                                            <th>address</th>
+                                            <th>createTime</th>
+                                            <th>status</th>
+                                            <th>image</th>
+                                            <th>model</th>
+                                            <th>bodyStyle</th>
+                                            <th>seats</th>
+                                            <th>fuelType</th>
+                                            <th>transmission</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!--/*@thymesVar id="result" type=""*/-->
+                                        <tr th:if="${result.data.data} != null"
+                                            th:each="car : ${result.data.data}">
+
+                                            <td style="line-height: 50px;" th:text="${car.id}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.carBrand}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.licensePlate}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.rentCost}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.longitude}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.dimension}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.address}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.createTime}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.statusStr}"></td>
+                                            <td><img th:src="@{/images/upload/} + ${car.image}" style="width: 50px;height: 50px;"></td>
+                                            <td style="line-height: 50px;" th:text="${car.model}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.bodyStyle}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.seats}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.fuelType}"></td>
+                                            <td style="line-height: 50px;" th:text="${car.transmission}"></td>
+
+                                            <td>
+                                                <a th:href="@{/admin/car/update(id=${car.id},status=3)}">
+                                                <span title="disable car" class="glyphicon glyphicon-remove"
+                                                      aria-hidden="true"></span>
+                                            </a>
+                                                <a th:href="@{/admin/car/toEdit/}+${car.id}">
+                                                <span title="edit car" class="glyphicon glyphicon-edit"
+                                                      aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/common/common::#footer"></div>
+</div>
+
+
+</body>
+</html>

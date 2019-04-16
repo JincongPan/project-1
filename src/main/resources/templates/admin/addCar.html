@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="admin/common/common::#head(title='car manage')"></div>
+
+
+<body class="flat-blue">
+<div class="app-container">
+    <div class="row content-container">
+        <div th:replace="admin/common/common::#topbar(navtext='car manage',activetext='add car')"></div>
+        <div class="side-menu">
+            <div th:replace="admin/common/common::#leftbar(activeUri='cars')"></div>
+        </div>
+        <!-- Main Content -->
+        <div class="container-fluid">
+            <div class="side-body">
+                <div class="page-title">
+                    <a th:href="@{/admin/car/index}"><span title="back" class="glyphicon glyphicon-chevron-left"
+                                                           aria-hidden="true"></span></a>
+                    <span class="title">Add Car</span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <div class="title">Car information</div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form id="addCarForm" th:action="@{/admin/car/create}" method="post" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="carBrand" class="col-sm-2 control-label">Car Brand</label>
+                                        <div class="col-sm-10">
+                                            <input name="carBrand" id="carBrand" type="text" class="form-control"
+                                                   placeholder="Car Brand">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="licensePlate" class="col-sm-2 control-label">licensePlate</label>
+                                        <div class="col-sm-10">
+                                            <input name="licensePlate" id="licensePlate" type="text"
+                                                   class="form-control"
+                                                   placeholder="License Plate">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="rentCost" class="col-sm-2 control-label">Rent Cost</label>
+                                        <div class="col-sm-10">
+                                            <input name="rentCost" id="rentCost" type="text" class="form-control"
+                                                   placeholder="Rent Cost">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="longitude" class="col-sm-2 control-label">longitude</label>
+                                        <div class="col-sm-10">
+                                            <input name="longitude" id="longitude" type="text" class="form-control"
+                                                   placeholder="longitude">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="dimension" class="col-sm-2 control-label">dimension</label>
+                                        <div class="col-sm-10">
+                                            <input name="dimension" id="dimension" type="text" class="form-control"
+                                                   placeholder="dimension">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="address" class="col-sm-2 control-label">address</label>
+                                        <div class="col-sm-10">
+                                            <input name="address" id="address" type="text" class="form-control"
+                                                   placeholder="address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image" class="col-sm-2 control-label">image</label>
+                                        <div class="col-sm-10">
+                                            <input name="file" id="image" type="file">
+                                            <img id="showImg" src="" style="width: 50px;height: 50px;"/>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label for="model" class="col-sm-2 control-label">model</label>
+                                        <div class="col-sm-10">
+                                            <input name="model" id="model" type="text" class="form-control"
+                                                   placeholder="model">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bodyStyle" class="col-sm-2 control-label">bodyStyle</label>
+                                        <div class="col-sm-10">
+                                            <input name="bodyStyle" id="bodyStyle" type="text" class="form-control"
+                                                   placeholder="bodyStyle">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="seats" class="col-sm-2 control-label">seats</label>
+                                        <div class="col-sm-10">
+                                            <input name="seats" id="seats" type="text" class="form-control"
+                                                   placeholder="seats">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="fuelType" class="col-sm-2 control-label">fuelType</label>
+                                        <div class="col-sm-10">
+                                            <input name="fuelType" id="fuelType" type="text" class="form-control"
+                                                   placeholder="fuelType">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="transmission" class="col-sm-2 control-label">transmission</label>
+                                        <div class="col-sm-10">
+                                            <input name="transmission" id="transmission" type="text" class="form-control"
+                                                   placeholder="transmission">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="features" class="col-sm-2 control-label">features</label>
+                                        <div class="col-sm-10" id="features">
+                                            <div class="checkbox">
+                                                <label class="col-md-2" th:each="feature : ${features}">
+                                                    <input type="checkbox" th:value="${feature.id}"> [[${feature.name}]]
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="description" class="col-sm-2 control-label">description</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="description" id="description" class="form-control"
+                                                      rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button class="btn btn-default">Add</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="admin/common/common::#footer"></div>
+</div>
+<script>
+    $(function () {
+        $("#image").on("change", function (event) {
+            var files = event.target.files, file;
+            if (files && files.length > 0) {
+                file = files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = function () {
+                    $("#showImg").attr("src", this.result);
+                }
+            }
+        })
+
+
+        $('#addCarForm')
+            .bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    carBrand: {
+                        message: 'The carBrand is not valid',
+
+                        validators: {
+                            notEmpty: {
+                                message: 'carBrand can not be empty'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 50,
+                                message: 'carBrand must between 1 to 50'
+                            },
+                        }
+                    },
+                    licensePlate: {
+                        message: 'The licensePlate is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'licensePlate can not be empty'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 50,
+                                message: 'licensePlate must between 1 to 50'
+                            },
+                        }
+                    },
+                    rentCost: {
+                        message: 'The rentCost is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'rent Cost can not be empty'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]{1,}[.]{0,1}[0-9]{0,}$/,
+                                message: 'rent Cost should be number'
+                            },
+                        }
+                    },
+                    longitude: {
+                        message: 'The longitude is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'longitude can not be empty'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]{1,}[.]{0,1}[0-9]{0,}$/,
+                                message: 'longitude should be number'
+                            },
+                        }
+                    },
+                    dimension: {
+                        message: 'The dimension is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'dimension can not be empty'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]{1,}[.]{0,1}[0-9]{0,}$/,
+                                message: 'dimension should be number'
+                            },
+                        }
+                    },
+
+                    address: {
+                        message: 'The address is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'address can not be empty'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 300,
+                                message: 'address must between 1 to 300'
+                            },
+                        }
+                    },
+                    model: {
+                        message: 'The model is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'model can not be empty'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 100,
+                                message: 'model must between 1 to 100'
+                            },
+                        }
+                    },
+                    bodyStyle: {
+                        message: 'The bodyStyle is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'bodyStyle can not be empty'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 100,
+                                message: 'bodyStyle must between 1 to 100'
+                            },
+                        }
+                    },
+                    seats: {
+                        message: 'The seats is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'seats can not be empty'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]{1,2}$/,
+                                message: 'seats should be number'
+                            },
+                        }
+                    },
+
+                    fuelType: {
+                        message: 'The fuelType is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'fuelType can not be empty'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 100,
+                                message: 'fuelType must between 1 to 100'
+                            },
+                        }
+                    },
+                    transmission: {
+                        message: 'The transmission is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'transmission can not be empty'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 100,
+                                message: 'transmission must between 1 to 100'
+                            },
+                        }
+                    },
+                    description: {
+                        message: 'The description is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'description can not be empty'
+                            },
+                            stringLength: {
+                                min: 1,
+                                max: 1000,
+                                message: 'description must between 1 to 1000'
+                            },
+                        }
+                    },
+                    file: {
+                        validators: {
+                            notEmpty: {message: '上传图片不能为空'},
+                            file: {
+                                extension: 'png,jpg,jpeg',
+                                type: 'image/png,image/jpg,image/jpeg',
+                                message: '请重新选择图片'
+                            }
+                        }
+                    },
+                }
+            }).on('success.form.bv', function (e) {
+            console.log("testest")
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('bootstrapValidator');
+
+            console.log(bv);
+            // Use Ajax to submit form data 提交至form标签中的action，result自定义
+            var fd = new FormData();
+            fd.append("file", $('#image')[0].files[0]);
+            fd.append("carBrand",$("#carBrand").val());
+            fd.append("licensePlate",$("#licensePlate").val());
+            fd.append("rentCost",$("#rentCost").val());
+            fd.append("longitude",$("#longitude").val());
+            fd.append("dimension",$("#dimension").val());
+            fd.append("address",$("#address").val());
+            fd.append("description",$("#description").val());
+            fd.append("model", $("#model").val());
+            fd.append("bodyStyle", $("#bodyStyle").val());
+            fd.append("seats", $("#seats").val());
+            fd.append("fuelType", $("#fuelType").val());
+            fd.append("transmission", $("#transmission").val());
+            var ids = [];
+            $("input:checkbox:checked").each(function(){
+                ids.push($(this).val());
+            });
+            fd.append("ids",ids);
+            $.ajax({
+                type : 'post',
+                url : $form.attr('action'),
+                data : fd,
+                contentType: false,
+                processData: false,
+                success : function(res){
+                    if(res.code == 0) {
+                        window.location.href = "[[@{/admin/car/index}]]";
+                    }
+                }
+            });
+        });
+
+    })
+
+</script>
+
+</body>
+</html>

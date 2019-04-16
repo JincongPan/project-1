@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="common/common::#head(title='car detail')"></div>
+<body>
+<!-- header -->
+<div th:replace="common/common::#header(active='cars')"></div>
+<!-- //header -->
+
+<!-- blog -->
+<div class="blog">
+    <!-- container -->
+    <div class="container">
+        <div class="blog-heading">
+            <h2 class="wow fadeInDown animated" data-wow-delay=".5s">Cars</h2>
+            <p class="wow fadeInUp animated" data-wow-delay=".5s">Cars introduction</p>
+        </div>
+        <div class="blog-top-grids">
+            <div class="=col-md-8 col-md-offset-2">
+                <div class="row">
+                    <div class="col-md-8">
+                        <form th:action="@{cars.html}" method="GET">
+                            <div class="input-group">
+                                <input type="hidden" name="pageNum" th:value="${res.data.pageNum}"/>
+                                <input type="text" name="keyword" th:value="${keyword}" class="form-control"
+                                       placeholder="Search for car brand">
+                                <span class="input-group-btn">
+                                    <input type="submit" class="btn btn-default" value="GO!"/>
+                            </span>
+                            </div><!-- /input-group -->
+                        </form>
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+            </div>
+            <div class="col-md-8  col-md-offset-2 blog-top-left-grid">
+                <div class="left-blog">
+                    <div class="blog-left" th:each="car : ${res.data.data}">
+                        <div class="blog-left-left wow fadeInUp animated" data-wow-delay=".5s">
+                            <img style="width: 100%;height: 23.875rem" th:src="@{/images/upload/} + ${car.image}"
+                                 alt=""/>
+                        </div>
+                        <div class="blog-left-right wow fadeInUp animated" data-wow-delay=".5s">
+                            <div class="col-md-12">
+                                <div class="pull-left">
+                                    <a th:href="@{/car.html(id=${car.id})}">[[${car.carBrand}]]</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a th:href="@{/rent/book(carId=${car.id})}" class="btn btn-default">rent</a>
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div>
+                                <p>[[${car.description}]]
+                                </p>
+
+                            </div>
+
+
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                    </div>
+                </div>
+                <div th:replace="common/common::#page_common(url='/cars.html')"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- //container -->
+</div>
+<!-- //blog -->
+
+<div th:replace="common/common::#footer"></div>
+</body>
+</html>

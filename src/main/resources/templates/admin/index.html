@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="admin/common/common::#head(title='Admin')"></div>
+
+
+<body class="flat-blue">
+<div class="app-container">
+    <div class="row content-container">
+        <div th:replace="admin/common/common::#topbar(navtext='Home',activetext='')"></div>
+        <div class="side-menu sidebar-inverse">
+            <div th:replace="admin/common/common::#leftbar(activeUri='main')"></div>
+        </div>
+        <!-- Main Content -->
+        <div class="container-fluid">
+            <div class="side-body padding-top">
+                <div class="row text-center">
+                    <h1>Welcome to rent system </h1>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/common/common::#footer"></div>
+
+    <div>
+    </div>
+</div>
+</body>
+</html>

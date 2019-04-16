@@ -1,0 +1,47 @@
+
+
+**简要描述：**
+
+- 创建学霸
+
+**请求URL：**
+- ` `
+
+**请求方式：**
+- POST
+
+**参数：**
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----   |
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+|${field.propertyName}|否 |${field.propertyType}| #if("$!field.comment" != "") ${field.comment} #end|
+#end
+
+
+
+**请求示例**
+```
+
+
+
+```
+
+
+**返回示例**
+
+```
+
+```
+
+**返回参数说明**
+
+|参数名|类型|说明|
+|:-----  |:-----|-----                           |
+|statusCode |int   |状态码，0成功，其它失败  |
+|message |string   |状态信息  |
+|results |string   |提示信息  |
+#foreach($field in ${table.fields})
+|${field.propertyName}|${field.propertyType}| #if("$!field.comment" != "") ${field.comment} #end|
+#end

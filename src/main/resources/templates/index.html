@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="common/common::#head(title='index')"></div>
+<style>
+    .pre-scrollable{
+        max-height: 500px;
+    }
+</style>
+<body>
+
+<div th:replace="common/common::#header(active='index')"></div>
+
+<!-- information -->
+<div class="information">
+    <div class="container">
+        <div class="information-heading">
+            <h3 class="wow fadeInDown animated" data-wow-delay=".5s">Why Select Us</h3>
+            <p class="wow fadeInUp animated" data-wow-delay=".5s">Vivamus efficitur scelerisque nulla nec lobortis.
+                Nullam ornare metus vel dolor feugiat maximus.Aenean nec nunc et metus volutpat dapibus ac vitae ipsum.
+                Pellentesque sed rhoncus nibh</p>
+        </div>
+
+        <div class="information-grids">
+
+
+            <div class="col-md-4 col-sm-12 pre-scrollable" style=" background-color: white;padding-top: 15px;">
+
+                <div class="media col-md-12 col-sm-12" th:if="${cars} != null" style="margin-bottom: 10px;"
+                     th:each="car : ${cars}">
+                    <div class="media-left">
+                        <a th:href="@{/car.html(id=${car.id})}">
+                            <img style="width: 64px; height: 64px" th:src="@{/images/upload/} + ${car.image}" alt=""/>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading">[[${car.carBrand}]]</h5>
+                        <h6>Price Rate: <span style="color: red;">$[[${car.rentCost}]]</span></h6>
+                        [[${car.description}]]
+                    </div>
+                    <hr>
+                </div>
+
+            </div>
+
+            <div class="col-md-8 col-sm-12">
+                <div id="map" style="width: 100%;height: 500px;border: 1px solid green;"></div>
+
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- banner -->
+<div class="banner">
+    <div class="slider">
+        <h2 class="wow shake animated" data-wow-delay=".5s">Rent</h2>
+        <div class="border"></div>
+        <script th:src="@{/js/responsiveslides.min.js}"></script>
+        <script>
+            // You can also use "$(window).load(function() {"
+            $(function () {
+                // Slideshow 4
+                $("#slider3").responsiveSlides({
+                    auto: true,
+                    pager: true,
+                    nav: true,
+                    speed: 500,
+                    namespace: "callbacks",
+                    before: function () {
+                        $('.events').append("<li>before event fired.</li>");
+                    },
+                    after: function () {
+                        $('.events').append("<li>after event fired.</li>");
+                    }
+                });
+            });
+        </script>
+        <div id="top" class="callbacks_container-wrap">
+            <ul class="rslides" id="slider3">
+                <li>
+                    <div class="slider-info">
+                        <h3 class="wow fadeInRight animated" data-wow-delay=".5s">Hopin share car</h3>
+                        <p class="wow fadeInLeft animated" data-wow-delay=".5s">This is a popular car rental system </p>
+                        <div class="more-button wow fadeInRight animated" data-wow-delay=".5s">
+                            <a th:href="@{/single.html}">Get a Rent</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:replace="common/common::#footer"></div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9_M-rPEf3hy5WT4fYVXuUAvZnA4FvMYg&callback=initMap"
+        async defer></script>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var map, infoWindow;
+
+    function getContent(data) {
+        var result = '<div id="content">' +
+            '<div id="siteNotice">' +
+            '</div>' +
+            '<h1 id="firstHeading" class="firstHeading">' + data.carBrand + '</h1>' +
+            '<div id="bodyContent">' +
+            '<p>position: (' + data.longitude+','+data.dimension + ')</p>' +
+            '<p>' + data.description + '</p>' +
+            '<a class="btn btn-default btn-sm" href="/car.html?id"'+data.id+'>detail</a>' +
+            '</div>' +
+            '</div>';
+        return result;
+    }
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                infoWindow.open(map);
+                map.setCenter(pos);
+                new google.maps.Marker({position: pos, map: map});
+            }, function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+
+        var data = eval([[${jsonData}]]);
+        console.log(data)
+
+
+        for (var i = 0; i < data.length; i++) {
+            console.log("pos  " + data[i].longitude + "," + data[i].dimension)
+            var position = new google.maps.LatLng(data[i].longitude, data[i].dimension);
+            var marker = new google.maps.Marker({
+                position: position,
+                icon: '/images/car.png',
+                map: map
+            });
+            var contentString = getContent(data[i]);
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString,
+                maxWidth: 200
+            });
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+        }
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
+
+    /*]]>*/
+</script>
+</body>
+</html>

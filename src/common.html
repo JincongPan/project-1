@@ -1,0 +1,239 @@
+<head id="head">
+    <title th:text="${title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS Libs -->
+    <link th:href="@{/admin/lib/css/bootstrap.min.css}" rel="stylesheet" type="text/css"
+          href="../admin/lib/css/bootstrap.min.css">
+    <link th:href="@{/admin/lib/css/font-awesome.min.css}" rel="stylesheet" type="text/css"
+          href="../lib/css/font-awesome.min.css">
+    <link th:href="@{/admin/lib/css/animate.min.css}" rel="stylesheet" type="text/css"
+          href="../lib/css/animate.min.css">
+    <link th:href="@{/admin/lib/css/bootstrap-switch.min.css}" rel="stylesheet" type="text/css"
+          href="../lib/css/bootstrap-switch.min.css">
+    <link th:href="@{/admin/lib/css/checkbox3.min.css}" rel="stylesheet" type="text/css"
+          href="../lib/css/checkbox3.min.css">
+    <link th:href="@{/admin/lib/css/jquery.dataTables.min.css}" rel="stylesheet" type="text/css"
+          href="../lib/css/jquery.dataTables.min.css">
+    <link th:href="@{/admin/lib/css/dataTables.bootstrap.css}" rel="stylesheet" type="text/css"
+          href="../lib/css/dataTables.bootstrap.css">
+    <link th:href="@{/admin/lib/css/select2.min.css}" rel="stylesheet" type="text/css"
+          href="../lib/css/select2.min.css">
+    <!-- CSS App -->
+    <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css" href="../css/style.css">
+    <link th:href="@{/admin/css/themes/flat-blue.css}" rel="stylesheet" type="text/css"
+          href="../css/themes/flat-blue.css">
+</head>
+
+
+
+<nav id="topbar" class="navbar navbar-default navbar-fixed-top navbar-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-expand-toggle">
+                <i class="fa fa-bars icon"></i>
+            </button>
+            <ol class="breadcrumb navbar-breadcrumb">
+                <li th:text="${navtext}">Table</li>
+                <li class="active" th:text="${activetext}"></li>
+            </ol>
+            <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                <i class="fa fa-th icon"></i>
+            </button>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+                <i class="fa fa-times icon"></i>
+            </button>
+            <li class="dropdown profile">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Emily
+                    Hart <span class="caret"></span></a>
+                <ul class="dropdown-menu animated fadeInDown">
+                    <li>
+                        <div class="profile-info">
+                            <h4 class="username">Emily Hart</h4>
+                            <p>emily_hart@email.com</p>
+                            <div class="btn-group margin-bottom-2x" role="group">
+                                <button type="button" class="btn btn-default"><i class="fa fa-user"></i> 管理员信息</button>
+                                <a type="button" class="btn btn-default" th:href="@{/admin/logout}"><i
+                                        class="fa fa-sign-out"></i> 退出</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 管理员首页左侧导航栏 -->
+<nav id="leftbar" class="navbar navbar-default" role="navigation">
+    <div class="side-menu-container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <div class="icon fa fa-paper-plane"></div>
+                <div class="title">Menus</div>
+            </a>
+            <button type="button" class="navbar-expand-toggle pull-right visible-xs">
+                <i class="fa fa-times icon"></i>
+            </button>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="" th:class="${activeUri=='main'?'active':''}">
+                <a th:href="@{/admin/index}">
+                    <span class="icon fa fa-tachometer"></span><span class="title">Home</span>
+                </a>
+            </li>
+            <li class="panel panel-default dropdown"
+                th:class="${activeUri=='cars'?'active panel panel-default dropdown':'panel panel-default dropdown'}">
+                <a data-toggle="collapse" href="#dropdown-element">
+                    <span class="icon fa fa-desktop"></span><span class="title">Car Manage</span>
+                </a>
+                <!-- Dropdown level 1 -->
+                <div id="dropdown-element" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav navbar-nav">
+                            <li><a th:href="@{/admin/car/index}">Car List</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="panel panel-default dropdown"
+                th:class="${activeUri=='categorys'?'active panel panel-default dropdown':'panel panel-default dropdown'}">
+                <a data-toggle="collapse" href="#dropdown-table">
+                    <span class="icon fa fa-table"></span><span class="title">User Manage</span>
+                </a>
+                <!-- Dropdown level 1 -->
+                <div id="dropdown-table" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav navbar-nav">
+                            <li><a th:href="@{/}">User list</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Dropdown-->
+            <li class="panel panel-default dropdown"
+                th:class="${activeUri=='users'?'active panel panel-default dropdown':'panel panel-default dropdown'}">
+                <a data-toggle="collapse" href="#component-example">
+                    <span class="icon fa fa-cubes"></span><span class="title">Order manage</span>
+                </a>
+                <!-- Dropdown level 1 -->
+                <div id="component-example" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="nav navbar-nav">
+                            <li><a th:href="@{/}">order List</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>
+
+
+<div id="pageBar" class="col-xs-12 col-md-12 col-sm-12" th:if="${result.data.totalPages}>1">
+    <div class="pull-left" style="padding-top: 5px;">
+        <label for="size">显示的数量</label>
+        <select id="size" class="form-control">
+            <option th:selected="${result.data.size == 10}" value="10">10</option>
+            <option th:selected="${result.data.size == 20}" value="20">20</option>
+            <option th:selected="${result.data.size == 30}" value="30">30</option>
+            <option th:selected="${result.data.size == 40}" value="40">40</option>
+            <option th:selected="${result.data.size == 50}" value="50">50</option>
+        </select>
+
+    </div>
+    <nav class="pull-right" aria-label="Page navigation">
+        <ul class="pagination">
+            <li th:if="${(result.data.number+1) != 1} ">
+                <a th:href="@{${url}(page=${result.data.number},keyword=${keyword},size=${result.data.size})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li th:class="${i == result.data.number?'active':''}"
+                th:if="${(i+1) ge 1 and (i+1) le result.data.totalPages}"
+                th:each="i : ${#numbers.sequence(result.data.number-4,result.data.number+5)}">
+                <a th:if="${i == result.data.number}" href="#">[[${i+1}]]</a>
+                <a th:if="${i != result.data.number}"
+                   th:href="@{${url}(page=${i+1},keyword=${keyword},size=${result.data.size})}">[[${i+1}]]</a>
+            </li>
+            <li th:if="${(result.data.number+1)!= result.data.totalPages} ">
+                <a th:href="@{${url}(page=${(result.data.number+2)},keyword=${keyword},size=${result.data.size})}"
+                   href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div id="userPageBar" class="col-xs-12 col-md-12 col-sm-12" th:if="${result.data.totalPages}>1">
+    <div class="pull-left" style="padding-top: 5px;">
+        <label for="size">显示的数量</label>
+        <select id="size" class="form-control">
+            <option th:selected="${result.data.size == 10}" value="10">10</option>
+            <option th:selected="${result.data.size == 20}" value="20">20</option>
+            <option th:selected="${result.data.size == 30}" value="30">30</option>
+            <option th:selected="${result.data.size == 40}" value="40">40</option>
+            <option th:selected="${result.data.size == 50}" value="50">50</option>
+        </select>
+
+    </div>
+    <nav class="pull-right" aria-label="Page navigation">
+        <ul class="pagination">
+            <li th:if="${(result.data.number+1) != 1} ">
+                <a th:href="@{${url}(type=${type},page=${result.data.number},keyword=${keyword},size=${result.data.size})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li th:class="${i == result.data.number?'active':''}"
+                th:if="${(i+1) ge 1 and (i+1) le result.data.totalPages}"
+                th:each="i : ${#numbers.sequence(result.data.number-4,result.data.number+5)}">
+                <a th:if="${i == result.data.number}" href="#">[[${i+1}]]</a>
+                <a th:if="${i != result.data.number}"
+                   th:href="@{${url}(type=${type},page=${i+1},keyword=${keyword},size=${result.data.size})}">[[${i+1}]]</a>
+            </li>
+            <li th:if="${(result.data.number+1)!= result.data.totalPages} ">
+                <a th:href="@{${url}(type=${type},page=${(result.data.number+2)},keyword=${keyword},size=${result.data.size})}"
+                   href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<footer id="footer" class="app-footer">
+    <div class="wrapper">
+        <span class="pull-right"><a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © Copyright &copy; 2019.Hopin share car All rights reserved
+    </div>
+    <!-- Javascript Libs -->
+    <script th:src="@{/admin/lib/js/jquery.min.js}" type="text/javascript" src="../lib/js/jquery.min.js"></script>
+    <script th:src="@{/admin/lib/js/bootstrap.min.js}" type="text/javascript"
+            src="../lib/js/bootstrap.min.js"></script>
+    <script th:src="@{/admin/lib/js/Chart.min.js}" type="text/javascript" src="../lib/js/Chart.min.js"></script>
+    <script th:src="@{/admin/lib/js/bootstrap-switch.min.js}" type="text/javascript"
+            src="../lib/js/bootstrap-switch.min.js"></script>
+    <script th:src="@{/admin/lib/js/jquery.matchHeight-min.js}" type="text/javascript"
+            src="../lib/js/jquery.matchHeight-min.js"></script>
+    <script th:src="@{/admin/lib/js/jquery.dataTables.min.js}" type="text/javascript"
+            src="../lib/js/jquery.dataTables.min.js"></script>
+    <script th:src="@{/admin/lib/js/dataTables.bootstrap.min.js}" type="text/javascript"
+            src="../lib/js/dataTables.bootstrap.min.js"></script>
+    <script th:src="@{/admin/lib/js/select2.full.min.js}" type="text/javascript"
+            src="../lib/js/select2.full.min.js"></script>
+    <script th:src="@{/admin/lib/js/ace/ace.js}" type="text/javascript" src="../lib/js/ace/ace.js"></script>
+    <script th:src="@{/admin/lib/js/ace/mode-html.js}" type="text/javascript"
+            src="../lib/js/ace/mode-html.js"></script>
+    <script th:src="@{/admin/lib/js/ace/theme-github.js}" type="text/javascript"
+            src="../lib/js/ace/theme-github.js"></script>
+    <!-- Javascript -->
+    <script th:src="@{/admin/js/app.js}" type="text/javascript" src="../js/app.js"></script>
+</footer>

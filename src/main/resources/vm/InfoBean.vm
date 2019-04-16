@@ -1,0 +1,113 @@
+package ${cfg.dueape}.form;
+
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import ${package.Entity}.${entity};
+import ${cfg.dueape}.form.base.BaseInfoBean;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.util.Date;
+
+/**
+* <p>
+    * $!{table.comment}
+    * </p>
+*
+* @author ${author}
+* @since ${date}
+*/
+
+
+public class ${entity}InfoBean extends BaseInfoBean {
+
+    ## ----------  BEGIN 字段循环遍历  ----------
+    #foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+        #set($keyPropertyName=${field.propertyName})
+    #end
+    #if("$!field.comment" != "")
+    /**
+    * ${field.comment}
+    */
+    #end
+    private ${field.propertyType} ${field.propertyName};
+    #end
+    ## ----------  END 字段循环遍历  ----------
+
+
+    ## ----------  属性设置 ----------
+    public ${entity} to${entity}(${entity} entity) {
+        #foreach($field in ${table.fields})
+           if(this.${field.propertyName} != null) {
+                entity.set${field.capitalName}(this.${field.propertyName});
+            }
+        #end
+        return entity;
+    }
+
+
+    ## ----------  属性设置 ----------
+    public Wrapper<${entity}> toWrapper() {
+        Wrapper<${entity}> wrapper = new EntityWrapper<>();
+        #foreach($field in ${table.fields})
+            #if(${field.propertyType.equals("String")})
+                #set($wrapperprefix="like")
+            #else
+                #set($wrapperprefix="eq")
+            #end
+            if(this.${field.propertyName} != null) {
+                #if(${field.propertyType.equals("String")})
+                    wrapper.${wrapperprefix}("${field.name}",this.${field.propertyName});
+                #else
+                    wrapper.${wrapperprefix}("${field.name}",this.${field.propertyName});
+                #end
+            }
+        #end
+        return wrapper;
+    }
+
+
+    ## ---- get set----
+    #if(!${entityLombokModel})
+        #foreach($field in ${table.fields})
+            #if(${field.propertyType.equals("boolean")})
+                #set($getprefix="is")
+            #else
+                #set($getprefix="get")
+            #end
+
+        public ${field.propertyType} ${getprefix}${field.capitalName}() {
+        return ${field.propertyName};
+        }
+
+            #if(${entityBuilderModel})
+            public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+            #else
+            public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+            #end
+        this.${field.propertyName} = ${field.propertyName};
+            #if(${entityBuilderModel})
+            return this;
+            #end
+        }
+        #end
+    #end
+
+    #if(!${entityLombokModel})
+    @Override
+    public String toString() {
+    return "${entity}{" +
+        #foreach($field in ${table.fields})
+            #if($!{velocityCount}==1)
+            "${field.propertyName}=" + ${field.propertyName} +
+            #else
+            ", ${field.propertyName}=" + ${field.propertyName} +
+            #end
+        #end
+    "}";
+    }
+#end
+}

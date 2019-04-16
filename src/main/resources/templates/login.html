@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="common/common::#head(title='Login')"></div>
+
+<body>
+<div th:replace="common/common::#header"></div>
+
+<!-- login -->
+<div class="login">
+    <div class="container">
+        <div class="login-body">
+            <div class="login-heading">
+                <h1>Login</h1>
+            </div>
+            <div class="login-info">
+                <form>
+                    <input type="text" class="user" id="username" name="username" placeholder="username" required="">
+                    <input type="password" id="password" name="password" class="lock" placeholder="Password">
+                    <span class="btn btn-default" onclick="submit()">Login</span>
+                    <div class="signup-text">
+                        <a th:href="@{/signup.html}">Don't have an account? Create one now</a>
+                    </div>
+                    <hr>
+                    <h2>or login with</h2>
+                    <div class="login-icons">
+                        <ul>
+                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a></li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //login -->
+
+<div th:replace="common/common::#footer"></div>
+
+</body>
+<script>
+
+    function submit() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+
+        if (username == null || username.trim() == "") {
+            layer.msg("please input username", {icon: 2});
+            return;
+        }
+        if (password == null || password.trim() == "") {
+            layer.msg("please input password", {icon: 2});
+            return;
+        }
+        $.post("[[@{/rent/customer/login}]]", {username: username, password: password},
+            function (data) {
+            console.log(data.msg)
+                var type = 1;
+                if(data.code != 0) {
+                    type = 2;
+                }
+                layer.msg(data.msg, {icon: type}, function () {
+                    if(data.data == 1) {
+                        window.location.href = "[[@{/admin/index}]]";
+                    }else{
+                        window.location.href = "[[@{/}]]";
+                    }
+
+            },"json");
+        });
+    }
+
+</script>
+</html>

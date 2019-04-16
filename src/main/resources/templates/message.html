@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="common/common::#head(title='Login')"></div>
+
+<body>
+<div th:replace="common/common::#header"></div>
+
+<!-- login -->
+<div class="login">
+    <div class="container">
+        <div class="grid_3 grid_5 wow fadeInUp animated" data-wow-delay=".5s">
+            <h3 class="hdg">Messages</h3>
+            <div class="alert alert-warning" role="alert">
+                <strong>Warning!</strong> [[${res.msg}]]
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //login -->
+
+<div th:replace="common/common::#footer"></div>
+
+</body>
+<script type="text/javascript" th:inline="javascript">
+
+    $(function () {
+        var res = eval([[${res}]]);
+        console.log(res)
+        window.setTimeout(function redirect_url(url) {
+            window.location.href = res.data;
+        }, 3000);
+    });
+
+</script>
+</html>

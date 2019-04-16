@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="common/common::#head(title='Sign up')"></div>
+
+<body>
+<div th:replace="common/common::#header"></div>
+
+<!-- login -->
+<div class="login">
+    <div class="container">
+        <div class="login-body">
+            <div class="login-heading">
+                <h1>Sign up</h1>
+            </div>
+            <div class="login-info">
+                <form id="signupForm" th:action="@{/rent/customer/register}" method="post">
+                    <div class="form-group">
+                        <input type="text" class="user" name="username" placeholder="username"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="user" name="firstName" placeholder="first name"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="user" name="lastName" placeholder="last name"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="lock" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confirm_password" class="lock"
+                               placeholder="Confirm Password"></div>
+                    <div class="form-group">
+                        <input type="text" class="user" name="age" placeholder="age" required="">
+                    </div>
+
+                    <select name="gender" class="form-control">
+                        <option value="1">male</option>
+                        <option value="2">female</option>
+                    </select>
+                    <input type="submit" name="Sign In" value="Sign up">
+                    <div class="signup-text">
+                        <a th:href="@{/login.html}">Already have an account? Login here.</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //login -->
+
+<div th:replace="common/common::#footer"></div>
+</body>
+<script>
+    $(function () {
+        $('#signupForm')
+            .bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    username: {
+                        message: 'The username is not valid',
+
+                        validators: {
+                            notEmpty: {
+                                message: 'Username can not be empty'
+                            },
+                            stringLength: {
+                                min: 6,
+                                max: 30,
+                                message: 'Username must between 6 to 30'
+                            }, regexp: {
+                                regexp: /^[a-zA-Z0-9_\.]+$/,
+                                message: 'Username can only be composed of letters, numbers, dots and underscores.'
+                            },
+                            threshold: 6,
+                            remote: {
+                                url: "[[@{/rent/customer/checkUsername}]]",
+                                data: function (value,validator) {
+                                    return {
+                                        username: value
+                                    };
+                                },
+                                message: 'username is already exist',
+                                delay:1000
+                            }
+                        }
+                    },
+                    password: {
+                        message: 'The password is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'Password can not be empty'
+                            },
+                            stringLength: {
+                                min: 6,
+                                max: 30,
+                                message: 'Password must between 6 to 30'
+                            },
+                            identical: {
+                                field: 'confirm_password',
+                                message: 'The two password is inconsistent.'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_\.]+$/,
+                                message: 'The password can only consist of alphabetical, number, dot and underscore'
+                            }
+                        }
+                    },
+                    confirm_password: {
+                        message: 'The confirm password is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'Confirm can not be empty'
+                            },
+                            identical: {//相同
+                                field: 'password',
+                                message: 'The two password is inconsistent.'
+                            }
+                        }
+                    },
+                    age: {
+                        message: 'The age is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: 'age can not be empty'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]{1,2}$/,
+                                message: 'age should be number'
+                            },
+                        }
+                    },
+
+                }
+            }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('bootstrapValidator');
+
+            $.post($form.attr('action'), $form.serialize(), function (result) {
+                console.log(result);
+                var type = 1;
+                if (result.code != 0) {
+                    type = 2;
+                }
+                layer.msg(result.data, {icon: type}, function () {
+                    if (result.code == 0) {
+                        window.location.href = "[[@{/login.html}]]";
+                    }
+
+                }, "json");
+            });
+        });
+    })
+</script>
+</html>

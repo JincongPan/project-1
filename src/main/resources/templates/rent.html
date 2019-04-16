@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<div th:replace="common/common::#head(title='Login')"></div>
+
+<body>
+<div th:replace="common/common::#header"></div>
+
+<!-- login -->
+<div class="login">
+    <div class="container">
+        <div class="codes-heading">
+            <div class="wow row fadeInDown animated" data-wow-delay=".5s">
+                <div class="col-md-5">
+                    <img class="pull-right" style="width: 10rem;height: 10rem"
+                         th:src="@{/images/upload/} + ${car.image}"
+                         alt=""/>
+                </div>
+                <div class="col-md-7">
+                    <h2>[[${car.carBrand}]]</h2>
+                    <h5>price: <span style="color: red">$[[${car.rentCost}]]/h</span></h5>
+                    <h5>seats: [[${car.seats}]]</h5>
+                    <h5>longitude: [[${car.longitude}]]</h5>
+                    <h5>dimension: [[${car.dimension}]]</h5>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 5rem" class="row wow fadeInUp animated" data-wow-delay=".5s">
+
+            <div class="col-md-8 col-md-offset-2">
+                <form th:action="@{/rent/save}" class="form-horizontal" method="post">
+                    <input type="hidden" name="carId" th:value="${car.id}">
+                    <div class="form-group">
+                        <label for="limit" class="col-sm-2 control-label">Limit Time</label>
+                        <div class="col-sm-10 input-append date form_datetime">
+                            <input required name="limitTime" id="limit" size="16" type="text" value="" readonly>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-default">Rent</button>
+                        </div>
+                    </div>
+
+                </form>
+
+
+            </div>
+
+        </div><!-- /.row -->
+    </div>
+</div>
+<!-- //login -->
+
+<div th:replace="common/common::#footer"></div>
+
+</body>
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+        format: "yyyy-mm-dd hh:ii"
+    });
+</script>
+</html>

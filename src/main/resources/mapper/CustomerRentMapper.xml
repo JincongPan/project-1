@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rent.mapper.CustomerRentMapper">
+    <select id="findCustomerRents" resultType="com.rent.entity.CustomerRent">
+        SELECT *
+        FROM (
+            SELECT
+            TA.id,
+            TA.customer_id,
+            TA.car_id,
+            TA.cost,
+            TA.rent_time,
+            TA.rent_status,
+            TA.return_time,
+            TA.remark,
+            TB.id 'car.id',
+            TB.car_brand 'car.carBrand',
+            TB.license_plate 'car.licensePlate',
+            TB.rent_cost 'car.rentCost',
+            TB.longitude 'car.longitude',
+            TB.dimension 'car.dimension',
+            TB.address 'car.address',
+            TB.`status` 'car.status',
+            TB.image 'car.image',
+            TB.seats 'car.seats',
+            TB.model 'car.model'
+
+            FROM
+            customer_rent TA
+            LEFT JOIN
+            t_car TB ON TA.car_id = TB.id
+        )temp
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+</mapper>
