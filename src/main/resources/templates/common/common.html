@@ -75,7 +75,7 @@
     <div class="bottom-header">
         <div class="container">
             <div class="logo wow fadeInDown animated" data-wow-delay=".5s">
-                <h1><a th:href="@{/index.html}"><img th:src="@{/images/logo.jpg}" alt=""/></a></h1>
+                <h1><a th:href="@{/index.html}"><img style="height: 5rem" th:src="@{/images/logo.jpg}" alt=""/></a></h1>
             </div>
             <div class="top-nav wow fadeInRight animated" data-wow-delay=".5s">
                 <nav class="navbar navbar-default">
@@ -91,7 +91,7 @@
                             <li><a th:href="@{/cars.html}" th:class="${active=='cars'?'active':''}">Cars</a></li>
                             <li th:if="${session.customer != null}" > <a th:href="@{/orders.html}" th:class="${active=='orders'?'active':''}">MyOrder</a></li>
 
-                            <li><a th:href="@{/codes.html}" th:class="${active=='about'?'active':''}">About</a></li>
+                            <li><a th:href="@{/about.html}" th:class="${active=='about'?'active':''}">About</a></li>
                             <li><a th:href="@{/contact.html}" th:class="${active=='contact'?'active':''}">Contact</a></li>
                         </ul>
                         <div class="clearfix"></div>

@@ -62,13 +62,16 @@
                     type = 2;
                 }
                 layer.msg(data.msg, {icon: type}, function () {
-                    if(data.data == 1) {
-                        window.location.href = "[[@{/admin/index}]]";
-                    }else{
-                        window.location.href = "[[@{/}]]";
+                    if(data.code == 0) {
+                        if(data.data == 1) {
+                            window.location.href = "[[@{/admin/index}]]";
+                        }else{
+                            window.location.href = "[[@{/}]]";
+                        }
                     }
 
-            },"json");
+
+            });
         });
     }
 

@@ -42,7 +42,7 @@
                             <td th:text="${t.rentTime}"></td>
                             <td th:text="${t.rentStatusStr}"></td>
                             <td>
-                                <a class="btn btn-default" th:if="${t.rentStatus == 1}" href="#">return</a>
+                                <a class="btn btn-default" th:if="${t.rentStatus == 1}" th:href="@{/rent/return(id=${t.id})}">return</a>
                                 <a th:href="@{/paypal/pay(id=${t.id})}" class="btn btn-default" th:if="${t.rentStatus == 2}" >pay</a>
                             </td>
                         </tr>

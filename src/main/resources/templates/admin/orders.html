@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="admin/common/common::#head(title='order manage')"></div>
+
+
+<body class="flat-blue">
+<div class="app-container">
+    <div class="row content-container">
+        <div th:replace="admin/common/common::#topbar(navtext='order Manage',activetext='order list')"></div>
+        <div class="side-menu sidebar-inverse">
+            <div th:replace="admin/common/common::#leftbar(activeUri='orders')"></div>
+        </div>
+        <!-- Main Content -->
+        <div class="container-fluid">
+            <div class="side-body">
+                <div class="page-title">
+                    <span class="title">All orders</span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="panel panel-default">
+                                    <!-- Table -->
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>car</th>
+                                            <th>Car Brand</th>
+                                            <th>rent Cost</th>
+                                            <th>total Cost</th>
+                                            <th>seats</th>
+                                            <th>Rent Time</th>
+                                            <th>Rent Status</th>
+                                            <th>customer</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr th:if="${result.data.data} != null"
+                                            th:each="t : ${result.data.data}">
+                                            <td th:text="${t.id}"></td>
+                                            <td><img th:src="@{/images/upload/} + ${t.car.image}"
+                                                     style="width: 50px;height: 50px;"></td>
+                                            <td th:text="${t.car.carBrand}"></td>
+                                            <td th:text="${t.car.rentCost}"></td>
+                                            <td th:text="${t.realCost}"></td>
+                                            <td th:text="${t.car.seats}"></td>
+                                            <td th:text="${t.rentTime}"></td>
+                                            <td th:text="${t.rentStatusStr}"></td>
+                                            <td th:text="${t.customerName}"></td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/common/common::#footer"></div>
+</div>
+
+
+</body>
+</html>

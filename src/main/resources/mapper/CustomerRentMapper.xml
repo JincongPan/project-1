@@ -4,31 +4,32 @@
     <select id="findCustomerRents" resultType="com.rent.entity.CustomerRent">
         SELECT *
         FROM (
-            SELECT
-            TA.id,
-            TA.customer_id,
-            TA.car_id,
-            TA.cost,
-            TA.rent_time,
-            TA.rent_status,
-            TA.return_time,
-            TA.remark,
-            TB.id 'car.id',
-            TB.car_brand 'car.carBrand',
-            TB.license_plate 'car.licensePlate',
-            TB.rent_cost 'car.rentCost',
-            TB.longitude 'car.longitude',
-            TB.dimension 'car.dimension',
-            TB.address 'car.address',
-            TB.`status` 'car.status',
-            TB.image 'car.image',
-            TB.seats 'car.seats',
-            TB.model 'car.model'
+        SELECT
+        TA.id,
+        TA.customer_id,
+        CONCAT(CONCAT(TC.first_name,' '),TC.last_name) 'customerName',
+        TA.car_id,
+        TA.cost,
+        TA.rent_time,
+        TA.rent_status,
+        TA.return_time,
+        TA.remark,
+        TB.id 'car.id',
+        TB.car_brand 'car.carBrand',
+        TB.license_plate 'car.licensePlate',
+        TB.rent_cost 'car.rentCost',
+        TB.longitude 'car.longitude',
+        TB.dimension 'car.dimension',
+        TB.address 'car.address',
+        TB.`status` 'car.status',
+        TB.image 'car.image',
+        TB.seats 'car.seats',
+        TB.model 'car.model'
 
-            FROM
-            customer_rent TA
-            LEFT JOIN
-            t_car TB ON TA.car_id = TB.id
+        FROM
+        customer_rent TA
+        LEFT JOIN
+        t_car TB ON TA.car_id = TB.id LEFT JOIN t_customer TC ON TA.customer_id=TC.id
         )temp
         <where>
             ${ew.sqlSegment}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="admin/common/common::#head(title='customer manage')"></div>
+
+
+<body class="flat-blue">
+<div class="app-container">
+    <div class="row content-container">
+        <div th:replace="admin/common/common::#topbar(navtext='Customer Manage',activetext='customers list')"></div>
+        <div class="side-menu sidebar-inverse">
+            <div th:replace="admin/common/common::#leftbar(activeUri='customers')"></div>
+        </div>
+        <!-- Main Content -->
+        <div class="container-fluid">
+            <div class="side-body">
+                <div class="page-title">
+                    <span class="title">All Cars</span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="col-xs-12 col-md-12 col-sm-12">
+                                            <div class="input-group col-xs-6 col-md-6 col-sm-12">
+                                                <input id="keyword" th:value="${keyword == null ? '':keyword}"
+                                                       type="text" style="margin-top: 5px;" class="form-control"
+                                                       placeholder="">
+                                                <span class="input-group-btn">
+                                                        <button class="btn btn-default"
+                                                                type="button">Search</button>
+                                                     <a th:href="@{/admin/car/add}" class="btn btn-default"
+                                                        type="button">Add Car</a>
+                                                    </span>
+                                            </div><!-- /input-group -->
+                                        </div>
+                                    </div>
+                                    <!-- Table -->
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>username</th>
+                                            <th>first name</th>
+                                            <th>last name</th>
+                                            <th>age</th>
+                                            <th>email</th>
+                                            <th>phone</th>
+                                            <th>address</th>
+                                            <th>gender</th>
+                                            <th>createTime</th>
+                                            <th>is delete</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!--/*@thymesVar id="result" type=""*/-->
+                                        <tr th:if="${result.data.data} != null"
+                                            th:each="c : ${result.data.data}">
+
+                                            <td style="line-height: 50px;" th:text="${c.id}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.username}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.firstName}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.lastName}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.age}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.email}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.phone}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.address}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.genderStr}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.createTime}"></td>
+                                            <td style="line-height: 50px;" th:text="${c.isDelete == 1 ? 'yes' : 'no'}"></td>
+
+                                            <td>
+                                                <a  th:href="@{/admin/customer/toEdit/}+${c.id}">
+                                                <span title="edit customer" class="glyphicon glyphicon-edit"
+                                                      aria-hidden="true"></span>
+                                                </a>
+                                                <a  th:href="@{/admin/customer/delete/}+${c.id}">
+                                                <span title="lock customer" th:if="${c.isDelete == 0}" class="glyphicon glyphicon-remove"
+                                                      aria-hidden="true"></span>
+                                                    <span title="lock customer" th:if="${c.isDelete == 1}" class="glyphicon glyphicon-ok"
+                                                          aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/common/common::#footer"></div>
+</div>
+
+
+</body>
+</html>

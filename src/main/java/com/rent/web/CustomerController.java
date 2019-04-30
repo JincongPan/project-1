@@ -3,6 +3,7 @@ package com.rent.web;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.rent.entity.TCustomer;
+import com.rent.form.CustomerRentInfoBean;
 import com.rent.form.TCustomerInfoBean;
 import com.rent.service.ITCustomerService;
 import com.rent.utils.ResponseCode;
@@ -16,7 +17,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,11 +128,11 @@ public class CustomerController {
     public Object checkUsername(TCustomerInfoBean infoBean, HttpSession session) {
         TCustomer customer = iTCustomerService.selectOne(
                 new EntityWrapper<TCustomer>().eq("username", infoBean.getUsername()));
-        Map<String,Boolean> map = new HashMap<>();
+        Map<String, Boolean> map = new HashMap<>();
         if (customer == null) {
-            map.put("valid",true);
+            map.put("valid", true);
         } else {
-            map.put("valid",false);
+            map.put("valid", false);
 
         }
         return map;
@@ -147,5 +150,46 @@ public class CustomerController {
     @RequestMapping(value = "/index")
     public String index() {
         return "index";
+    }
+
+
+    /**
+     * 查询所有
+     *
+     * @return
+     */
+    @GetMapping(value = "/profile")
+    public String profile(HttpServletRequest request) {
+        TCustomer customer = (TCustomer) request.getSession().getAttribute("customer");
+        if (customer == null) {
+            return "redirect:/login.html";
+        }
+        request.setAttribute("customer", customer);
+        return "profile";
+    }
+
+
+    /**
+     * 更新
+     *
+     * @return
+     */
+    @RequestMapping(value = "/save")
+    @ResponseBody
+    public String save(TCustomerInfoBean infoBean,HttpServletRequest request) throws IOException {
+        TCustomer customer = (TCustomer) request.getSession().getAttribute("customer");
+        if (customer == null) {
+            return ResultBuilder.buildResponseCode(ResponseCode.PARAMS_WRONG);
+        }
+        infoBean.setIsAdmin(null);
+        infoBean.setUsername(null);
+        TCustomer tCustomer = infoBean.toTCustomer(customer);
+        if (iTCustomerService.updateById(tCustomer)) {
+            request.getSession().setAttribute("customer",tCustomer);
+            return ResultBuilder.buildOk();
+        } else {
+            return ResultBuilder.buildResponseCode(ResponseCode.DATABASE_FAIL);
+        }
+
     }
 }

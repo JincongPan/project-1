@@ -46,9 +46,19 @@ public class CustomerRent implements Serializable {
     @TableField("limit_time")
     private Date limitTime;
     private String remark;
-
+    @TableField(exist = false)
+    private String customerName;
     @TableField(exist = false)
     private TCar car;
+
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
     public TCar getCar() {
         return car;
@@ -116,7 +126,7 @@ public class CustomerRent implements Serializable {
             result = "renting";
         }
         if (rentStatus == STATUS_NO_PAY) {
-            result = "no pay";
+            result = "unpaid";
         }
         if (rentStatus == STATUS_RETURN) {
             result = "return";

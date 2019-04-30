@@ -27,7 +27,11 @@ public class TCustomerInfoBean extends BaseInfoBean {
     private Integer gender;
     private Date createTime;
     private Integer isAdmin;
+    private Integer isDelete;
 
+    private String email;
+    private String phone;
+    private String address;
 
     public TCustomer toTCustomer(TCustomer entity) {
         if (this.id != null) {
@@ -56,6 +60,18 @@ public class TCustomerInfoBean extends BaseInfoBean {
         }
         if (this.isAdmin != null) {
             entity.setIsAdmin(this.isAdmin);
+        }
+        if(this.isDelete != null) {
+            entity.setIsDelete(this.isDelete);
+        }
+        if(this.phone != null) {
+            entity.setPhone(this.phone);
+        }
+        if(this.email != null) {
+            entity.setEmail(this.email);
+        }
+        if(this.address != null) {
+            entity.setAddress(this.address);
         }
         return entity;
     }
@@ -93,6 +109,37 @@ public class TCustomerInfoBean extends BaseInfoBean {
         return wrapper;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Integer getId() {
         return id;

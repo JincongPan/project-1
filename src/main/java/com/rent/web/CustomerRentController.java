@@ -8,15 +8,10 @@ import com.rent.entity.TCustomer;
 import com.rent.form.CustomerRentInfoBean;
 import com.rent.service.ICustomerRentService;
 import com.rent.service.ITCarService;
-import com.rent.utils.ResponseCode;
 import com.rent.utils.Result;
-import com.rent.utils.ResultBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -33,7 +28,7 @@ import java.util.Map;
  * @author rent
  * @since 2019-04-12
  */
-@Controller
+@Controller()
 @RequestMapping("/rent")
 public class CustomerRentController {
 
@@ -91,5 +86,17 @@ public class CustomerRentController {
         carService.updateById(car);
         model.put("res", Result.build(200,"Rent car success, please return car in time","/index.html"));
         return "message";
+    }
+
+    @RequestMapping("/return")
+    public String returnCar(CustomerRentInfoBean infoBean){
+        Integer id = infoBean.getId();
+        CustomerRent customerRent = iCustomerRentService.selectById(id);
+        customerRent.setRentStatus(CustomerRent.STATUS_NO_PAY);
+        TCar tCar = carService.selectById(customerRent.getCarId());
+        tCar.setStatus(TCar.STATUS_NORMAL);
+        iCustomerRentService.updateById(customerRent);
+        carService.updateById(tCar);
+        return "redirect:/orders.html";
     }
 }

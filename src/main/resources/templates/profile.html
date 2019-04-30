@@ -1,66 +1,111 @@
 <!DOCTYPE html>
 <html>
-<div th:replace="common/common::#head(title='Sign up')"></div>
+<div th:replace="common/common::#head(title='Login')"></div>
 
 <body>
 <div th:replace="common/common::#header"></div>
+<!-- about -->
+<div class="about">
+    <div class="about-heading">
+        <div class="container">
+            <h2 class="wow fadeInDown animated" data-wow-delay=".5s">Profile</h2>
 
-<!-- login -->
-<div class="login">
-    <div class="container">
-        <div class="login-body">
-            <div class="login-heading">
-                <h1>Sign up</h1>
-            </div>
-            <div class="login-info">
-                <form id="signupForm" th:action="@{/rent/customer/register}" method="post">
+            <div class="row" data-wow-delay=".5s">
+                <form id="signupForm" class="form-horizontal" th:action="@{/rent/customer/save}" method="post">
                     <div class="form-group">
-                        <input type="text" class="user" name="username" placeholder="username"
-                               required="">
+                        <label for="username" class="col-sm-2 control-label">username</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly id="username" name="username" th:value="${customer.username}"
+                                   >
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="user" name="firstName" placeholder="first name"
-                               required="">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="user" name="lastName" placeholder="last name"
-                               required="">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" class="lock" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="confirm_password" class="lock"
-                               placeholder="Confirm Password"></div>
-                    <div class="form-group">
-                        <input type="text" class="user" name="age" placeholder="age" required="">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="user" name="email" placeholder="email" required="">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="user" name="phone" placeholder="phone" required="">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="user" name="address" placeholder="address" required="">
+                        <label for="password" class="col-sm-2 control-label">new password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" th:value="${customer.password}" name="password" id="password"
+                                   placeholder="Password">
+                        </div>
                     </div>
 
-                    <select name="gender" class="form-control">
-                        <option value="1">male</option>
-                        <option value="2">female</option>
-                    </select>
-                    <input type="submit" name="Sign In" value="Sign up">
-                    <div class="signup-text">
-                        <a th:href="@{/login.html}">Already have an account? Login here.</a>
+
+                    <div class="form-group">
+                        <label for="firstName" class="col-sm-2 control-label">first name</label>
+                        <div class="col-sm-10">
+                            <input required th:value="${customer.firstName}" name="firstName" id="firstName" type="text"
+                                   class="form-control"
+                                   placeholder="firstName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName" class="col-sm-2 control-label">last name</label>
+                        <div class="col-sm-10">
+                            <input required th:value="${customer.lastName}" name="lastName" id="lastName"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="lastName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age" class="col-sm-2 control-label">Age</label>
+                        <div class="col-sm-10">
+                            <input required th:value="${customer.age}" name="age" id="age" type="text"
+                                   class="form-control"
+                                   placeholder="Rent Cost">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">email</label>
+                        <div class="col-sm-10">
+                            <input required th:value="${customer.email}" name="email" id="email" type="text"
+                                   class="form-control"
+                                   placeholder="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">phone</label>
+                        <div class="col-sm-10">
+                            <input required th:value="${customer.phone}" name="phone" id="phone" type="text"
+                                   class="form-control"
+                                   placeholder="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">address</label>
+                        <div class="col-sm-10">
+                            <input required th:value="${customer.address}" name="address" id="address" type="text"
+                                   class="form-control"
+                                   placeholder="address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender" class="col-sm-2 control-label">gender</label>
+                        <div class="col-sm-10">
+                            <select id="gender" name="gender" class="form-control">
+                                <option th:selected="${customer.gender == 1}" value="1">male</option>
+                                <option th:selected="${customer.gender == 2}" value="2">female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-default">save</button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
 </div>
-<!-- //login -->
+<!-- //about -->
+
 
 <div th:replace="common/common::#footer"></div>
+
 </body>
 <script>
     $(function () {
@@ -72,34 +117,6 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    username: {
-                        message: 'The username is not valid',
-
-                        validators: {
-                            notEmpty: {
-                                message: 'Username can not be empty'
-                            },
-                            stringLength: {
-                                min: 6,
-                                max: 30,
-                                message: 'Username must between 6 to 30'
-                            }, regexp: {
-                                regexp: /^[a-zA-Z0-9_\.]+$/,
-                                message: 'Username can only be composed of letters, numbers, dots and underscores.'
-                            },
-                            threshold: 6,
-                            remote: {
-                                url: "[[@{/rent/customer/checkUsername}]]",
-                                data: function (value,validator) {
-                                    return {
-                                        username: value
-                                    };
-                                },
-                                message: 'username is already exist',
-                                delay:1000
-                            }
-                        }
-                    },
                     password: {
                         message: 'The password is not valid',
                         validators: {
@@ -180,14 +197,15 @@
             var bv = $form.data('bootstrapValidator');
 
             $.post($form.attr('action'), $form.serialize(), function (result) {
+                var result = JSON.parse(result);
                 console.log(result);
                 var type = 1;
                 if (result.code != 0) {
                     type = 2;
                 }
-                layer.msg(result.data, {icon: type}, function () {
+                layer.msg(result.msg, {icon: type}, function () {
+
                     if (result.code == 0) {
-                        window.location.href = "[[@{/login.html}]]";
                     }
 
                 }, "json");

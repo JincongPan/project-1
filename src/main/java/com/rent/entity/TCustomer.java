@@ -35,6 +35,44 @@ public class TCustomer implements Serializable {
     @TableField("is_admin")
     private Integer isAdmin;
 
+    @TableField("is_delete")
+    private Integer isDelete;
+
+    private String email;
+    private String phone;
+    private String address;
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Integer getId() {
         return id;
@@ -107,7 +145,9 @@ public class TCustomer implements Serializable {
     public void setIsAdmin(Integer isAdmin) {
         this.isAdmin = isAdmin;
     }
-
+    public String getGenderStr(){
+        return gender == 1? "male":"female";
+    }
     @Override
     public String toString() {
         return "TCustomer{" +

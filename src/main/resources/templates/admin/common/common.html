@@ -3,25 +3,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSS Libs -->
-    <link th:href="@{/admin1/lib/css/bootstrap.min.css}" rel="stylesheet" type="text/css"
+    <link th:href="@{/admin/lib/css/bootstrap.min.css}" rel="stylesheet" type="text/css"
           href="../admin/lib/css/bootstrap.min.css">
-    <link th:href="@{/admin1/lib/css/font-awesome.min.css}" rel="stylesheet" type="text/css"
+    <link th:href="@{/admin/lib/css/font-awesome.min.css}" rel="stylesheet" type="text/css"
           href="../lib/css/font-awesome.min.css">
-    <link th:href="@{/admin1/lib/css/animate.min.css}" rel="stylesheet" type="text/css"
+    <link th:href="@{/admin/lib/css/animate.min.css}" rel="stylesheet" type="text/css"
           href="../lib/css/animate.min.css">
-    <link th:href="@{/admin1/lib/css/bootstrap-switch.min.css}" rel="stylesheet" type="text/css"
+    <link th:href="@{/admin/lib/css/bootstrap-switch.min.css}" rel="stylesheet" type="text/css"
           href="../lib/css/bootstrap-switch.min.css">
-    <link th:href="@{/admin1/lib/css/checkbox3.min.css}" rel="stylesheet" type="text/css"
+    <link th:href="@{/admin/lib/css/checkbox3.min.css}" rel="stylesheet" type="text/css"
           href="../lib/css/checkbox3.min.css">
-    <link th:href="@{/admin1/lib/css/jquery.dataTables.min.css}" rel="stylesheet" type="text/css"
+    <link th:href="@{/admin/lib/css/jquery.dataTables.min.css}" rel="stylesheet" type="text/css"
           href="../lib/css/jquery.dataTables.min.css">
-    <link th:href="@{/admin1/lib/css/dataTables.bootstrap.css}" rel="stylesheet" type="text/css"
+    <link th:href="@{/admin/lib/css/dataTables.bootstrap.css}" rel="stylesheet" type="text/css"
           href="../lib/css/dataTables.bootstrap.css">
-    <link th:href="@{/admin1/lib/css/select2.min.css}" rel="stylesheet" type="text/css"
+    <link th:href="@{/admin/lib/css/select2.min.css}" rel="stylesheet" type="text/css"
           href="../lib/css/select2.min.css">
     <!-- CSS App -->
-    <link th:href="@{/admin1/css/style.css}" rel="stylesheet" type="text/css" href="../css/style.css">
-    <link th:href="@{/admin1/css/themes/flat-blue.css}" rel="stylesheet" type="text/css"
+    <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css" href="../css/style.css">
+    <link th:href="@{/admin/css/themes/flat-blue.css}" rel="stylesheet" type="text/css"
           href="../css/themes/flat-blue.css">
     <link href="http://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet"/>
 </head>
@@ -111,8 +111,10 @@
                 </div>
             </li>
 
+
+
             <li class="panel panel-default dropdown"
-                th:class="${activeUri=='categorys'?'active panel panel-default dropdown':'panel panel-default dropdown'}">
+                th:class="${activeUri=='customers'?'active panel panel-default dropdown':'panel panel-default dropdown'}">
                 <a data-toggle="collapse" href="#dropdown-table">
                     <span class="icon fa fa-table"></span><span class="title">User Manage</span>
                 </a>
@@ -120,24 +122,23 @@
                 <div id="dropdown-table" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul class="nav navbar-nav">
-                            <li><a th:href="@{/}">User list</a>
+                            <li><a  th:href="@{/admin/customer/index}">User list</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </li>
 
-            <!-- Dropdown-->
             <li class="panel panel-default dropdown"
-                th:class="${activeUri=='users'?'active panel panel-default dropdown':'panel panel-default dropdown'}">
-                <a data-toggle="collapse" href="#component-example">
-                    <span class="icon fa fa-cubes"></span><span class="title">Order manage</span>
+                th:class="${activeUri=='orders'?'active panel panel-default dropdown':'panel panel-default dropdown'}">
+                <a data-toggle="collapse" href="#dropdown-orders">
+                    <span class="icon fa fa-cubes"></span><span class="title">orders Manage</span>
                 </a>
                 <!-- Dropdown level 1 -->
-                <div id="component-example" class="panel-collapse collapse">
+                <div id="dropdown-orders" class="panel-collapse collapse">
                     <div class="panel-body">
                         <ul class="nav navbar-nav">
-                            <li><a th:href="@{/}">order List</a>
+                            <li><a th:href="@{/admin/orders/index}">order list</a>
                             </li>
                         </ul>
                     </div>
@@ -217,27 +218,27 @@
         2019.Hopin share car All rights reserved
     </div>
     <!-- Javascript Libs -->
-    <script th:src="@{/admin1/lib/js/jquery.min.js}" type="text/javascript" src="../lib/js/jquery.min.js"></script>
-    <script th:src="@{/admin1/lib/js/bootstrap.min.js}" type="text/javascript"
+    <script th:src="@{/admin/lib/js/jquery.min.js}" type="text/javascript" src="../lib/js/jquery.min.js"></script>
+    <script th:src="@{/admin/lib/js/bootstrap.min.js}" type="text/javascript"
             src="../lib/js/bootstrap.min.js"></script>
-    <script th:src="@{/admin1/lib/js/Chart.min.js}" type="text/javascript" src="../lib/js/Chart.min.js"></script>
-    <script th:src="@{/admin1/lib/js/bootstrap-switch.min.js}" type="text/javascript"
+    <script th:src="@{/admin/lib/js/Chart.min.js}" type="text/javascript" src="../lib/js/Chart.min.js"></script>
+    <script th:src="@{/admin/lib/js/bootstrap-switch.min.js}" type="text/javascript"
             src="../lib/js/bootstrap-switch.min.js"></script>
-    <script th:src="@{/admin1/lib/js/jquery.matchHeight-min.js}" type="text/javascript"
+    <script th:src="@{/admin/lib/js/jquery.matchHeight-min.js}" type="text/javascript"
             src="../lib/js/jquery.matchHeight-min.js"></script>
-    <script th:src="@{/admin1/lib/js/jquery.dataTables.min.js}" type="text/javascript"
+    <script th:src="@{/admin/lib/js/jquery.dataTables.min.js}" type="text/javascript"
             src="../lib/js/jquery.dataTables.min.js"></script>
-    <script th:src="@{/admin1/lib/js/dataTables.bootstrap.min.js}" type="text/javascript"
+    <script th:src="@{/admin/lib/js/dataTables.bootstrap.min.js}" type="text/javascript"
             src="../lib/js/dataTables.bootstrap.min.js"></script>
-    <script th:src="@{/admin1/lib/js/select2.full.min.js}" type="text/javascript"
+    <script th:src="@{/admin/lib/js/select2.full.min.js}" type="text/javascript"
             src="../lib/js/select2.full.min.js"></script>
-    <script th:src="@{/admin1/lib/js/ace/ace.js}" type="text/javascript" src="../lib/js/ace/ace.js"></script>
-    <script th:src="@{/admin1/lib/js/ace/mode-html.js}" type="text/javascript"
+    <script th:src="@{/admin/lib/js/ace/ace.js}" type="text/javascript" src="../lib/js/ace/ace.js"></script>
+    <script th:src="@{/admin/lib/js/ace/mode-html.js}" type="text/javascript"
             src="../lib/js/ace/mode-html.js"></script>
-    <script th:src="@{/admin1/lib/js/ace/theme-github.js}" type="text/javascript"
+    <script th:src="@{/admin/lib/js/ace/theme-github.js}" type="text/javascript"
             src="../lib/js/ace/theme-github.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
-    <script th:src="@{/admin1/js/app.js}" type="text/javascript" src="../js/app.js"></script>
+    <script th:src="@{/admin/js/app.js}" type="text/javascript" src="../js/app.js"></script>
     <script th:src="@{/js/layer/layer.js}"></script>
 
 </footer>
