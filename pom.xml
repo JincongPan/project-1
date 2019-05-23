@@ -115,7 +115,7 @@
 			<version>20180130</version>
 		</dependency>
 
-		<!-- shiro相关 -->
+		<!-- shiro related-->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
