@@ -7,12 +7,8 @@ import com.rent.entity.TCustomer;
 import java.util.Date;
 
 /**
- * <p>
- * <p>
- * </p>
  *
  * @author rent
- * @since 2019-04-05
  */
 
 
