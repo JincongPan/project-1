@@ -16,12 +16,8 @@ import jdk.net.SocketFlow;
 import java.io.Serializable;
 
 /**
- * <p>
- * <p>
- * </p>
  *
  * @author rent
- * @since 2019-04-12
  */
 @TableName("customer_rent")
 public class CustomerRent implements Serializable {
