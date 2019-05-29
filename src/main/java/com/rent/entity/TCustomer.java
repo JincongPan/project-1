@@ -8,12 +8,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author rent
- * @since 2019-04-05
  */
 @TableName("t_customer")
 public class TCustomer implements Serializable {
