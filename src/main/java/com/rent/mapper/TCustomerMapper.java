@@ -6,11 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 /**
  * <p>
- *  Mapper 接口
+ *  Mapper interface
  * </p>
  *
- * @author rent
- * @since 2019-04-05
  */
 @Mapper
 @Repository
