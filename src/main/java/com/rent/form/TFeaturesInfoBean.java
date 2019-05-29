@@ -6,12 +6,8 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.rent.entity.TFeatures;
 
 /**
- * <p>
- * <p>
- * </p>
  *
  * @author rent
- * @since 2019-04-09
  */
 
 
