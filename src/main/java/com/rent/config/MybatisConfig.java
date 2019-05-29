@@ -6,13 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MybatisConfig {
-    /**
-     * 分页插件
-     *
-     * @return
-     * @author BlueRocket
-     */
-    @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         return paginationInterceptor;
