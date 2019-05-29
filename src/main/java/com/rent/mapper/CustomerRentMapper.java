@@ -13,11 +13,10 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ *  Mapper interface
  * </p>
  *
  * @author rent
- * @since 2019-04-12
  */
 @Mapper
 @Repository
