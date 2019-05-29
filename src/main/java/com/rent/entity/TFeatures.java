@@ -11,7 +11,6 @@ import java.io.Serializable;
  * </p>
  *
  * @author rent
- * @since 2019-04-09
  */
 @TableName("t_features")
 public class TFeatures implements Serializable {
